@@ -1,15 +1,28 @@
 import React from 'react'
-
-const Header = () => {
+import { useState } from 'react'
+const Header = ({setApi}) => {
+  const [active, setActive] = useState("")
+  const changeApi = (ele) =>{
+    let id = ele.target.getAttribute("id")
+    setActive(id)
+    setApi(`https://dummyjson.com/products/category/${id}`)
+  }
   return (
-    <div>
-        <h1 className='text-2xl '>TrendingProducts</h1> 
-        <div className='select flex w-full '>
-            <h1 id='phones' className=' text-center w-1/4 border-x border-amber-700 bg-amber-500 text-xl'>Phones</h1>
-            <h1 id='laptop' className='text-center w-1/4 border-x border-amber-700 bg-amber-500 text-xl'>Laptops</h1>
-            <h1 id="shirts" className='text-center w-1/4 border-x border-amber-700 bg-amber-500 text-xl'>Shirts</h1>
-            <h1 id='Handbags' className='text-center w-1/4 border-x border-amber-700 bg-amber-500 text-xl'>Handbags</h1>
-        </div>
+     <div>
+      <h1 className='text-2xl'>Trending Products</h1>
+
+      <div className='flex w-full' onClick={changeApi}>
+        {["beauty", "laptops", "mens-shirts", "furniture","womens-dresses"].map((item) => (
+          <h1
+            key={item}
+            id={item}
+            className={`text-center w-1/4 border border-gray-700/10 text-xl py-2 transition-transform hover:scale-110
+              ${active === item ? "bg-amber-500" : "bg-gray-300"}`}
+          >
+            {item}
+          </h1>
+        ))}
+      </div>
     </div>
   )
 }
